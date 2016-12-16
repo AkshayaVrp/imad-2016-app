@@ -8,7 +8,7 @@ button.onclick=function(){
         if(request.status===200){
             var count=request.responseText;
            var span=document.getElementById('count');
-          span.innerHTML=counter.toString();}
+          span.innerHTML=count.toString();}
      }
     };  
     request.open('GET','http://akshayavrp.imad.hasura-app.io/counter',true);
