@@ -24,6 +24,18 @@ app.get('/', function (req, res) {
 });
 
 
+var pool=new Pool(config);
+app.get('/test-db',function(req,res){
+    pool.query('SELECT * FROM  test',function(req,res){
+       if(err){
+            res.status(500).send(err.toString());
+       } 
+       else
+       {
+           res.send(JSON.stringify(result));
+       }
+    });
+}); 
 function hash(input,salt){
    var hashed= crypto.pbkdf2Sync(input, salt, 100000, 512, 'sha512');
    return ["pbkdf2","10000", salt,hashed.toString('hex')].join('$');
@@ -55,7 +67,7 @@ app.post('/create-user',function(req,res) {
     
 });
 
-var pool=new Pool(config);
+
 app.post('/login',function(req,res){
     var username=req.body.username;
     var password=req.body.password;//assume username and password are JSON request
