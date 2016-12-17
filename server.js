@@ -10,7 +10,7 @@ var config={
  database: 'akshayavrp',
  host: 'db.imad.hasura-app.io',
  port: '5432',
- password: process.env.DB_PASSWORD
+  password: process.env.DB_PASSWORD
 };
 
 
@@ -41,21 +41,17 @@ app.post('/create-user',function(req,res) {
     //username,password
    //{"username": "akshayavrp" , "password": "password"}
    //JSON
-    var username=req.body.username;
-    var password=req.body.password; //assume username and password are JSON request
-    var salt=crypto.randomBytes(128).toString('hex');
-    var dbString=hash(password,salt);
-    
-    
-    pool.query('INSERT INTO "user" (username,password) VALUES ($1, $2)',[username,dbString],function(err,result){
-       if(err)
-       {
-           res.status(500).send(err.toString());
-       }else{
-           res.send('User succesfully created!!'+username);
-       }
-    });
-    
+      var username = req.body.username;
+   var password = req.body.password;
+   var salt = crypto.randomBytes(128).toString('hex');
+   var dbString = hash(password, salt);
+   pool.query('INSERT INTO "user" (username, password) VALUES ($1, $2)', [username, dbString], function (err, result) {
+      if (err) {
+          res.status(500).send(err.toString());
+      } else {
+          res.send('User successfully created: ' + username);
+      }
+   });
 });
 
 
@@ -71,37 +67,37 @@ app.get('/test-db',function(req,res){
     });
 }); 
 
-
-
-
-
-
-app.post('/login',function(req,res){
-    var username=req.body.username;
-    var password=req.body.password;//assume username and password are JSON request
-    
-    pool.query('SELECT * FROM "user" WHERE username=$1',[username],function(err,result){
-       if(err)
-       {
-           res.status(500).send(err.toString());
-       }else{
-           if(result.rows.length===0){
-               res.send(403).send('username or password is invalid');
-           }else{
-               //Match the password
-           var dbString=result.rows[0].password;
-            var salt=dbString.split('$')[2];
-            var hashedPassword=hash(password,salt);//create a password based on the pwd submitted and origiinal salt
-           if(hashedPassword===dbString){
-           res.send('Credentials correct!!');
-           }
-           else{
-                res.send(403).send('username or password is invalid');
-               }
-           }
-       }
-    });
-    
+app.post('/login', function (req, res) {
+   var username = req.body.username;
+   var password = req.body.password;
+   
+   pool.query('SELECT * FROM "user" WHERE username = $1', [username], function (err, result) {
+      if (err) {
+          res.status(500).send(err.toString());
+      } else {
+          if (result.rows.length === 0) {
+              res.status(403).send('username/password is invalid');
+          } else {
+              // Match the password
+              var dbString = result.rows[0].password;
+              var salt = dbString.split('$')[2];
+              var hashedPassword = hash(password, salt); // Creating a hash based on the password submitted and the original salt
+              if (hashedPassword === dbString) {
+                
+                // Set the session
+                req.session.auth = {userId: result.rows[0].id};
+                // set cookie with a session id
+                // internally, on the server side, it maps the session id to an object
+                // { auth: {userId }}
+                
+                res.send('credentials correct!');
+                
+              } else {
+                res.status(403).send('username/password is invalid');
+              }
+          }
+      }
+   });
 });
 
 
