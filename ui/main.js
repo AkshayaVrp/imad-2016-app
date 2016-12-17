@@ -41,7 +41,7 @@ var submit = document.getElementById('login_btn');
 window.onload= function () {
      // Create a request object
      var submit = document.getElementById('login_btn');
-//submit.onclick
+ submit.onclick =function(){
     var request = new XMLHttpRequest();
     
     // Capture the response and store it in a variable
@@ -63,6 +63,7 @@ window.onload= function () {
           }  
         // Not done yet
         };
+ };
     
     // Make the request
     var username = document.getElementById('username').value;
