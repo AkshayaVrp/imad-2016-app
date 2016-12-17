@@ -55,7 +55,7 @@ app.post('/create-user',function(req,res) {
     
 });
 
-
+var pool=new Pool(config);
 app.post('/login',function(req,res){
     var username=req.body.username;
     var password=req.body.password;//assume username and password are JSON request
@@ -83,7 +83,7 @@ app.post('/login',function(req,res){
     });
     
 });
-var pool=new Pool(config);
+
 
 var counter=0;
 app.get('/counter',function(req,res){
