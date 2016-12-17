@@ -36,7 +36,8 @@ app.get('/hash/:input',function(req,res) {
 });
 
 app.post('/create-user',function(req,res) {
-    
+   //{"username": "akshaya" , "password": "password"}
+   //JSON
     var username=req.body.username;
     var password=req.body.password;//assume username and password are JSON request
     var salt=crypto.randomBytes(128).toString('hex');
