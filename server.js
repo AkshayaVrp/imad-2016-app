@@ -10,8 +10,7 @@ var config={
  database: 'akshayavrp',
  host: 'db.imad.hasura-app.io',
  port: '5432',
- password: 'password'
- //process.env.DB_PASSWORD
+ password: process.env.DB_PASSWORD
 };
 
 
@@ -61,7 +60,7 @@ app.post('/create-user',function(req,res) {
 
 
 app.get('/test-db',function(req,res){
-    pool.query('SELECT * FROM  test ',function(req,res){
+    pool.query('SELECT * FROM  test ',function(err,result){
        if(err){
             res.status(500).send(err.toString());
        } 
@@ -90,7 +89,7 @@ app.post('/login',function(req,res){
                res.send(403).send('username or password is invalid');
            }else{
                //Match the password
-            var dbString=result.rows[0].password;
+           var dbString=result.rows[0].password;
             var salt=dbString.split('$')[2];
             var hashedPassword=hash(password,salt);//create a password based on the pwd submitted and origiinal salt
            if(hashedPassword===dbString){
@@ -98,7 +97,7 @@ app.post('/login',function(req,res){
            }
            else{
                 res.send(403).send('username or password is invalid');
-           }
+               }
            }
        }
     });
