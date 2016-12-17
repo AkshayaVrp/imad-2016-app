@@ -18,9 +18,7 @@ button.onclick=function(){
     }
     
     };
-  //  var username=document.getElementById('username');
-    //var password=document.getElementById('password');
-    //request.open('POST','http://akshayavrp.imad.hasura-app.io/login',true); 
+  
     request.open('GET','http://akshayavrp.imad.hasura-app.io/counter',true);
     request.send(null);
     
