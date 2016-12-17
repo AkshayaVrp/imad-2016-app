@@ -24,6 +24,7 @@ button.onclick=function(){
     
 };
 ///
+
 function loadLoginForm () {
     var loginHtml = `
         <h3>Login/Register to unlock awesome features</h3>
@@ -34,23 +35,20 @@ function loadLoginForm () {
         <input type="submit" id="register_btn" value="Register" />
         `;
     document.getElementById('login_area').innerHTML = loginHtml;
-}
-// Submit username/password to login
-var submit = document.getElementById('login_btn');
-//submit.onclick
-window.onload= function () {
-     // Create a request object
-     var submit = document.getElementById('login_btn');
- submit.onclick =function(){
-    var request = new XMLHttpRequest();
     
-    // Capture the response and store it in a variable
-    request.onreadystatechange = function() {
-        if (request.readyState === XMLHttpRequest.DONE) {
-            // Take some action
-            if (request.status === 200) {
-                submit.value = 'Success!';
-            } else if (request.status === 403) {
+    // Submit username/password to login
+    var submit = document.getElementById('login_btn');
+    submit.onclick = function () {
+        // Create a request object
+        var request = new XMLHttpRequest();
+        
+        // Capture the response and store it in a variable
+        request.onreadystatechange = function () {
+          if (request.readyState === XMLHttpRequest.DONE) {
+              // Take some action
+              if (request.status === 200) {
+                  submit.value = 'Sucess!';
+              } else if (request.status === 403) {
                   submit.value = 'Invalid credentials. Try again?';
               } else if (request.status === 500) {
                   alert('Something went wrong on the server');
@@ -61,22 +59,22 @@ window.onload= function () {
               }
               loadLogin();
           }  
-        // Not done yet
+          // Not done yet
         };
- };
-    
-    // Make the request
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-    console.log(username);
-    console.log(password);
-   request.open('POST', '/login', true);
+        
+        // Make the request
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        console.log(username);
+        console.log(password);
+        request.open('POST', '/login', true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.send(JSON.stringify({username: username, password: password}));  
         submit.value = 'Logging in...';
-
-};
- var register = document.getElementById('register_btn');
+        
+    };
+    
+    var register = document.getElementById('register_btn');
     register.onclick = function () {
         // Create a request object
         var request = new XMLHttpRequest();
@@ -94,7 +92,8 @@ window.onload= function () {
               }
           }
         };
-     // Make the request
+        
+        // Make the request
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         console.log(username);
@@ -105,6 +104,7 @@ window.onload= function () {
         register.value = 'Registering...';
     
     };
+}
 
 function loadLoggedInUser (username) {
     var loginArea = document.getElementById('login_area');
@@ -130,6 +130,7 @@ function loadLogin () {
     request.open('GET', '/check-login', true);
     request.send(null);
 }
+
 function loadArticles () {
         // Check if the user is already logged in
     var request = new XMLHttpRequest();
@@ -144,10 +145,10 @@ function loadArticles () {
                     <a href="/articles/${articleData[i].title}">${articleData[i].heading}</a>
                     (${articleData[i].date.split('T')[0]})</li>`;
                 }
-                content += "</ul>";
+                content += "</ul>"
                 articles.innerHTML = content;
             } else {
-                articles.innerHTML=('Oops! Could not load all articles!');
+                articles.innerHTML('Oops! Could not load all articles!')
             }
         }
     };
