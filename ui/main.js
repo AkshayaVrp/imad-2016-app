@@ -23,7 +23,6 @@ button.onclick=function(){
     request.send(null);
     
 };
-///
 
 function loadLoginForm () {
     var loginHtml = `
