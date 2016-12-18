@@ -16,7 +16,7 @@ var config = {
 };
 
 var app = express();
-app.use(morgan('combined'));
+//app.use(morgan('combined'));
 console.log(process.env.DB_PASSWORD);
 app.use(bodyParser.json());
 
