@@ -1,4 +1,4 @@
-
+/*
 function loadLoginForm () {
     var loginHtml = `
         <h3>Login/Register to unlock awesome features</h3>
@@ -104,7 +104,7 @@ function loadLogin () {
     request.open('GET', '/check-login', true);
     request.send(null);
 }
-
+*/
 function loadArticles () {
         // Check if the user is already logged in
     var request = new XMLHttpRequest();
