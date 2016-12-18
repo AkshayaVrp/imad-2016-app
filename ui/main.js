@@ -1,4 +1,4 @@
-/*
+
 function loadLoginForm () {
     var loginHtml = `
         <h3>Login/Register to unlock awesome features</h3>
@@ -104,12 +104,11 @@ function loadLogin () {
     request.open('GET', '/check-login', true);
     request.send(null);
 }
-*/
 function loadArticles () {
         // Check if the user is already logged in
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
-       // if (request.readyState === XMLHttpRequest.DONE) {
+        if (request.readyState === XMLHttpRequest.DONE) {
             var articles = document.getElementById('articles');
             if (request.status === 200) {
                 var content = '<ul>';
@@ -124,7 +123,7 @@ function loadArticles () {
             } else {
                 articles.innerHTML='Oops! Could not load all articles!';
             }
-        //}
+        }
     };
     
     request.open('GET', '/get-articles', true);
@@ -133,7 +132,7 @@ function loadArticles () {
 
 
 // The first thing to do is to check if the user is logged in!
-//loadLogin();
+loadLogin();
 
 // Now this is something that we could have directly done on the server-side using templating too!
 loadArticles();
