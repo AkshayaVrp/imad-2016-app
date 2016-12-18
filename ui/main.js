@@ -132,6 +132,7 @@ function loadLogin () {
 
 function loadArticles () {
         // Check if the user is already logged in
+                    var articles = document.getElementById('articles');
     var request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE) {
